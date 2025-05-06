@@ -1,27 +1,20 @@
-# ADR <ID>: <Judul Keputusan Arsitektur>
+# ADR 003: Menggunakan RESTful API dengan Laravel sebagai Backend
 
-Date: YYYY-MM-DD
+Date: 2025-05-06
 
 ## Status
 
-[Proposed | Accepted | Deprecated | Superseded by ADR <ID>]
+🟢 **Accepted**
 
 ## Context
 
-<!--
-Berikan latar belakang kenapa keputusan ini perlu diambil.
-Jelaskan masalah atau kebutuhan teknis yang menyebabkan diperlukannya keputusan ini.
-Bisa juga mencantumkan batasan, tujuan, atau persyaratan sistem.
--->
+Komunikasi data antara frontend dengan backend perlu konsisten dan fleksibel, sehingga kita mengusulkan Laravel 11 sebagai backend nya
 
 ## Decision
 
-<!--
-Tuliskan keputusan akhir yang diambil. 
-Jelaskan solusi atau pendekatan yang dipilih dengan alasan singkat.
--->
+Gunakan pendekatan **REST API** (GET/POST/PUT/DELETE) sebagai metode komunikasi antara frontend (Flutter) dan backend (Laravel)
 
 ## Consequences
 
-<!--
-Jelaskan dampak dari keputusan ini, baik positif maupun
++ Mudah untuk testing
+- Perlu dipertimbangkan karena kita akan ada fitur chat yang bersifat real-time (coba menggunakan WebSocket untuk sistem chat nya nanti).
