@@ -6,6 +6,14 @@ Date: 2025-05-06
 
 🟢 **Accepted**
 
+## Decider
+
+Ketua Tim - @habibiezkrillh
+
+## Informed
+
+@leowdij08 @aurel0365
+
 ## Context
 
 Komunikasi data antara frontend dengan backend perlu konsisten dan fleksibel, sehingga kita mengusulkan Laravel 11 sebagai backend nya
