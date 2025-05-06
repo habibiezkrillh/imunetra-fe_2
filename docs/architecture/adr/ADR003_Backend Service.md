@@ -16,5 +16,7 @@ Gunakan pendekatan **REST API** (GET/POST/PUT/DELETE) sebagai metode komunikasi 
 
 ## Consequences
 
+### Pro:
 + Mudah untuk testing
+### Cons:
 - Perlu dipertimbangkan karena kita akan ada fitur chat yang bersifat real-time (coba menggunakan WebSocket untuk sistem chat nya nanti).
