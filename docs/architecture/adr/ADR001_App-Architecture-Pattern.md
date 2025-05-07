@@ -11,6 +11,7 @@ Leonard Widjaja
 
 ## Informed
 Aurelia Davine Putri Nata & Muhammad Habbibie Zikrillah
+
 ## Context
 
 Imunetra merupakan sistem digital berbasis mobile yang dirancang untuk mendeteksi kasus pneumonia pada anak-anak di wilayah terpencil. Sistem ini terdiri dari dua aplikasi yang saling terhubung:  
