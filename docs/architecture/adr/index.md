@@ -1,18 +1,86 @@
-# 🧠 Architecture Decision Log (ADL)
+# Architecture Decision Log (ADL)
 
 Dokumen ini berisi daftar seluruh keputusan arsitektur yang telah diambil dalam proyek ini. Setiap keputusan dijelaskan dalam file ADR terpisah.
 
-| No   | Tanggal    | Judul Keputusan                                        | Status   |
-|------|------------|--------------------------------------------------------|----------|
-| 0001 | 2025-05-07 | [Pemilihan Arsitektur MVVM](ADR001_App-Architecture-Pattern.md) | Accepted |
-| 0002 | 2025-05-07 | [Pemilihan State Management dengan BLoC](ADR002_State-Management.md)     | Accepted |
-| 0003 | 2025-05-06 | [Menggunakan RESTful API dengan Laravel](ADR003_Backend.md) | Accepted |
-| 0004 | <Isi Tanggal> | [<Tanpa Judul>](ADR004_Local-Data.md) | <No Status> |
-| 0005 | <Isi Tanggal> | [<Tanpa Judul>](ADR005_Dependency-Injection.md) | <No Status> |
-| 0006 | <Isi Tanggal> | [<Tanpa Judul>](ADR006_Navigation-Routing.md) | <No Status> |
-| 0007 | <Isi Tanggal> | [<Tanpa Judul>](ADR007_UI.md) | <No Status> |
-| 0008 | <Isi Tanggal> | [<Tanpa Judul>](ADR008_Offline.md) | <No Status> |
-| 0009 | <Isi Tanggal> | [<Tanpa Judul>](ADR009_Error.md) | <No Status> |
-| 0010 | <Isi Tanggal> | [<Tanpa Judul>](ADR010_Testing.md) | <No Status> |
+---
+
+## ADR 001 - Pemilihan Arsitektur MVVM
+- **Status**: Accepted
+- **Date**: 07/05/2025
+- **Decider**: Muhammad Habbibie Zikrillah
+- **Summary**: Tim memilih arsitektur **MVVM** (Model-View-ViewModel) untuk aplikasi Imunetra untuk memisahkan logika presentasi, data, dan antarmuka pengguna, sehingga mempermudah pemeliharaan dan pengujian aplikasi.
 
 ---
+
+## ADR 002 - Pemilihan State Management
+- **Status**: Accepted
+- **Date**: 07/05/2025
+- **Decider**: Leonard Widjaja
+- **Summary**: Tim memilih **BLoC** sebagai solusi untuk pengelolaan state aplikasi, karena kemampuannya dalam menangani aliran data yang kompleks, serta adanya dokumentasi yang baik dan komunitas yang kuat.
+
+---
+
+## ADR 003 - Backend Integration Strategy
+- **Status**: Proposed
+- **Date**: 07/05/2025
+- **Decider**: Leonard Widjaja
+- **Summary**: Tim memilih menggunakan RESTful API sebagai strategi komunikasi antara aplikasi Flutter dan backend Laravel.
+
+---
+
+## ADR 004 - Data Persistence Strategy
+- **Status**: Proposed
+- **Date**: 07/05/2025
+- **Decider**: Leonard Widjaja
+- **Summary**: Tim memilih untuk menggunakan **SQLite** sebagai mekanisme penyimpanan data lokal di aplikasi, memberikan solusi yang baik untuk caching dan pengelolaan data offline.
+
+---
+
+## ADR 005 - Dependency Injection Framework
+- **Status**: Accepted
+- **Date**: 07/05/2025
+- **Decider**: Leonard Widjaja
+- **Summary**: Tim memilih menggunakan kombinasi **GetIt** dan **injectable** sebagai solusi dependency injection di aplikasi Imunetra.
+
+---
+
+## ADR 006 - Navigation & Routing Solution
+- **Status**: Proposed
+- **Date**: 07/05/2025
+- **Decider**: Aurelia Davine Putri Nata  
+- **Summary**: Tim memutuskan untuk menggunakan **go_router** sebagai solusi routing utama.
+
+---
+
+## ADR 007 - Theming & UI Styling 
+- **Status**: Proposed
+- **Date**: 07/05/2025
+- **Decider**: Muhammad Habbibie Zikrillah  
+- **Summary**: Tim memutuskan untuk menggunakan **Material Theming Flutter** yang dikustomisasi sesuai identitas visual Imunetra.
+
+---
+
+## ADR 008 - Offline Support & Caching
+- **Status**: Accepted
+- **Date**: 07/05/2025
+- **Decider**: Aurelia Davine Putri Nata 
+- **Summary**: Tim memutuskan untuk menggunakan pendekatan **Local-First dengan Layer Cache Manual** dimana data penting akan disimpan di penyimpanan lokal terlebih dahulu.
+
+---
+
+## ADR 009 - Error Handling & Monitoring
+- **Status**: Accepted
+- **Date**: 07/05/2025
+- **Decider**: Aurelia Davine Putri Nata  
+- **Summary**: Memilih **Sentry** untuk menangani pelaporan error dan monitoring aplikasi, guna mendeteksi dan merespons masalah dengan lebih efisien.
+
+---
+
+## ADR 010 - Testing Strategy & CI/CD Pipeline
+- **Status**: Proposed
+- **Date**: 07/05/2025
+- **Decider**: Muhammad Habbibie Zikrillah  
+- **Summary**: Menunda implementasi **CI/CD pipeline** dan **testing otomatis** (unit, widget, integration tests) untuk saat ini, dan lebih fokus pada **manual testing** di perangkat Android hingga aplikasi stabil.
+
+
+
