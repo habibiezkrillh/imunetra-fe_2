@@ -5,7 +5,7 @@ Dokumen ini berisi daftar seluruh keputusan arsitektur yang telah diambil dalam 
 | No   | Tanggal    | Judul Keputusan                                        | Status   |
 |------|------------|--------------------------------------------------------|----------|
 | 0001 | 2025-05-07 | [Pemilihan Arsitektur MVVM](ADR001_App-Architecture-Pattern.md) | Accepted |
-| 0002 | 2025-05-07 | [Pemilihan State Management dengan BLoC](ADR002_State-Management.md)     | <No Status> |
+| 0002 | 2025-05-07 | [Pemilihan State Management dengan BLoC](ADR002_State-Management.md)     | Accepted |
 | 0003 | 2025-05-06 | [Menggunakan RESTful API dengan Laravel](ADR003_Backend.md) | Accepted |
 | 0004 | <Isi Tanggal> | [<Tanpa Judul>](ADR004_Local-Data.md) | <No Status> |
 | 0005 | <Isi Tanggal> | [<Tanpa Judul>](ADR005_Dependency-Injection.md) | <No Status> |
