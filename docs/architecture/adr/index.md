@@ -4,7 +4,7 @@ Dokumen ini berisi daftar seluruh keputusan arsitektur yang telah diambil dalam 
 
 ---
 
-## ADR 001 - Pemilihan Arsitektur MVVM
+## ADR 001 - App Architecture Pattern
 - **Status**: Accepted
 - **Date**: 07/05/2025
 - **Decider**: Muhammad Habbibie Zikrillah
@@ -12,7 +12,7 @@ Dokumen ini berisi daftar seluruh keputusan arsitektur yang telah diambil dalam 
 
 ---
 
-## ADR 002 - Pemilihan State Management
+## ADR 002 - State Management Approach
 - **Status**: Accepted
 - **Date**: 07/05/2025
 - **Decider**: Leonard Widjaja
@@ -28,7 +28,7 @@ Dokumen ini berisi daftar seluruh keputusan arsitektur yang telah diambil dalam 
 
 ---
 
-## ADR 004 - Data Persistence Strategy
+## ADR 004 - Local Data Persistence
 - **Status**: Proposed
 - **Date**: 07/05/2025
 - **Decider**: Leonard Widjaja
