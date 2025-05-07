@@ -7,10 +7,11 @@ Accepted
 07/05/2025
 
 ## Decider 
-Leonard Widjaja
+Muhammad Habbibie Zikrillah
 
 ## Informed
-Aurelia Davine Putri Nata & Muhammad Habbibie Zikrillah
+Aurelia Davine Putri Nata
+Leonard Widjaja
 
 ## Context
 
