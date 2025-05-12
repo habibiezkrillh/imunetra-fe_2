@@ -6,112 +6,143 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white, // Latar putih penuh
       body: Center(
-        child: Container(
-          width: 350,
-          padding: const EdgeInsets.all(24.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 20),
-              // Logo placeholder
-              Icon(Icons.local_florist, size: 48, color: Colors.blue[700]),
-              const SizedBox(height: 12),
-              Text(
-                "imunetra",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.blue[700],
-                  fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Container(
+            width: 360,
+            padding: const EdgeInsets.all(32.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.15),
+                  spreadRadius: 4,
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                "Selamat Datang Kembali ke Imunetra",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              TextField(
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.person_outline),
-                  hintText: "Username",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.lock_outline),
-                  hintText: "Kata Sandi",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "Lupa Kata Sandi?",
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 10),
+                Icon(Icons.health_and_safety,
+                    size: 64, color: Colors.blueAccent),
+                const SizedBox(height: 12),
+                Text(
+                  "Imunetra",
                   style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.blue[700],
-                    fontStyle: FontStyle.italic,
+                    fontSize: 24,
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.2,
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[600],
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
+                const SizedBox(height: 8),
+                Text(
+                  "Selamat Datang Kembali",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 32),
+                TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person_outline),
+                    hintText: "Username",
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                    ),
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      borderSide: BorderSide.none,
                     ),
                   ),
-                  onPressed: () {},
-                  child: const Text("Masuk"),
                 ),
-              ),
-              const SizedBox(height: 12),
-              RichText(
-                text: TextSpan(
-                  text: "Belum Punya Akun? ",
-                  style: const TextStyle(fontSize: 14, color: Colors.black),
-                  children: [
-                    TextSpan(
-                      text: "Daftar",
+                const SizedBox(height: 16),
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    hintText: "Kata Sandi",
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    onTap: () {
+                      // aksi lupa sandi
+                    },
+                    child: Text(
+                      "Lupa Kata Sandi?",
                       style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.blue[700],
+                        fontSize: 13,
+                        color: Colors.blueAccent,
                         fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      elevation: 4,
+                    ),
+                    onPressed: () {
+                      // aksi login
+                    },
+                    child: const Text("Masuk"),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Belum punya akun? ",
+                      style: TextStyle(fontSize: 14, color: Colors.black87),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        // aksi daftar
+                      },
+                      child: Text(
+                        "Daftar",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.blueAccent,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+              ],
+            ),
           ),
         ),
       ),
