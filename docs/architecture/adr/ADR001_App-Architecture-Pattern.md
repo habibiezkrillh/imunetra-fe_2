@@ -1,4 +1,4 @@
-# ADR 001: Pemilihan Arsitektur MVVM
+# ADR 001: Pemilihan Arsitektur Frontend: MVVM
 
 ## Status
 Accepted
