@@ -1,56 +1,53 @@
 # ADR 007: Pemilihan Theming & UI Styling
 
-## Status
+## Status  
 Accepted
 
-## Date
+## Date  
 07/05/2025
 
-## Decider 
+## Decider  
 Muhammad Habbibie Zikrillah  
 
-## Informed
+## Informed  
 Aurelia Davine Putri Nata  
 Leonard Widjaja
 
-## Context
+## Context  
 
-Aplikasi Imunetra melayani dua peran pengguna utama: relawan lapangan dan tenaga kesehatan. Setiap peran mengakses fitur berbeda, namun tetap berada dalam satu ekosistem aplikasi yang harus terlihat dan terasa konsisten. Aplikasi juga akan digunakan dalam berbagai kondisi pencahayaan, sehingga perlu mendukung tema terang dan gelap.
+Aplikasi Imunetra memiliki dua jenis pengguna utama: **relawan lapangan** dan **tenaga kesehatan**. Meskipun mereka mengakses fitur yang berbeda, keseluruhan aplikasi harus tetap konsisten secara visual dan efisien dalam proses pengembangannya.
 
-Kami membutuhkan sistem theming yang:
+Demi menjaga keseragaman desain serta menyederhanakan pengembangan antarmuka pengguna, diperlukan pendekatan styling yang:
+- Terintegrasi langsung dengan framework Flutter.
+- Mudah digunakan dan dikustomisasi secara global.
+- Tidak membutuhkan konfigurasi tambahan atau sistem design terpisah.
 
-- Mendukung konsistensi visual antar halaman dan komponen.
-- Mudah dikustomisasi secara global.
-- Memungkinkan branding ulang jika dibutuhkan oleh institusi.
+## Decision  
 
-## Decision
+Tim memutuskan untuk menggunakan **Material Design bawaan Flutter** sebagai sistem theming dan styling utama aplikasi Imunetra.
 
-Tim memutuskan untuk menggunakan **Material Theming Flutter** yang dikustomisasi sesuai identitas visual Imunetra.
+- `ThemeData`, `ColorScheme`, dan `TextTheme` akan dimanfaatkan secara langsung sesuai standar Flutter.
+- Elemen-elemen seperti warna utama, sekunder, serta tipografi dasar akan didefinisikan dalam satu file pusat (`theme.dart`).
 
-- Akan digunakan `ThemeData`, `ColorScheme`, `TextTheme`, dan komponen-komponen Material 3.
-- Warna utama, sekunder, dan tipografi akan didefinisikan dalam satu sumber pusat (`theme.dart`).
-- Mendukung Light Theme dan Dark Theme, dengan toggle adaptif bila diperlukan.
-
-## Consequences
+## Consequences  
 
 ### Keuntungan
 
-- **Cepat dan praktis**: Terintegrasi langsung dalam framework Flutter.
-- **Konsistensi otomatis**: Semua komponen UI mengikuti tema global.
-- **Siap Material 3**: Dukungan desain modern dan fleksibel.
+- **Praktis dan efisien**: Menggunakan apa yang sudah disediakan oleh Flutter tanpa perlu library tambahan.
+- **Mudah dipelajari dan digunakan**: Developer cukup mengikuti standar bawaan Material.
+- **Konsistensi otomatis**: UI di seluruh aplikasi memiliki tampilan yang seragam.
 
 ### Potensi Risiko
 
-- **Tampilan generik jika tidak dikustomisasi**.
-- **Butuh pendekatan ekstra untuk styling granular per peran** jika ingin tampilan yang benar-benar berbeda antar role.
+- **Kurangnya fleksibilitas visual** jika di masa depan dibutuhkan perbedaan tampilan antar peran atau tema.
+- **Keterbatasan kustomisasi mendalam** jika dibandingkan dengan sistem design custom atau framework UI eksternal.
 
 ### Mitigasi
 
-- Mengatur token warna, padding, dan font sejak awal dalam file `theme.dart`.
-- Menyusun guideline visual internal (spacing, corner radius, dsb).
-- Jika dibutuhkan, menambahkan `AppTheme` class yang menyesuaikan tampilan berdasarkan role pengguna.
+- Seluruh styling dasar seperti warna dan font akan dikonsolidasikan di `theme.dart` agar memudahkan perubahan jika dibutuhkan nanti.
+- Bila diperlukan di masa mendatang, pendekatan ini tetap bisa dikembangkan lebih lanjut tanpa mengganti seluruh struktur styling.
 
 ## Alternatives Considered
 
-- **Cupertino Theming**: Tidak relevan karena fokus hanya pada platform iOS.
-- **Custom Design System Full**: Terlalu berat untuk versi awal dan memerlukan effort besar dalam dokumentasi dan pengujian konsistensi.
+- **Cupertino Theming**: Tidak digunakan karena aplikasi ini bersifat lintas platform dan tidak eksklusif untuk iOS.
+- **Custom Design System dari Nol**: Dianggap terlalu kompleks dan tidak efisien untuk kebutuhan Imunetra saat ini, terutama pada fase awal pengembangan.
