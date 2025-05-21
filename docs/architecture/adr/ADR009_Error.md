@@ -19,35 +19,35 @@ Aplikasi Imunetra akan digunakan di daerah terpencil, di mana bug atau crash yan
 
 ## Decision
 
-Tim memutuskan menggunakan **Sentry** sebagai solusi error handling dan monitoring untuk proyek Imunetra. Sentry dipilih karena:
-
-- Mendukung **Flutter** dan **Laravel** secara native.
-- Memungkinkan tracking **crash, error non-fatal**, dan **performance monitoring**.
-- Memberikan fitur **breadcrumbs**, yang menunjukkan kronologi event sebelum error.
-- Mampu menghubungkan frontend dan backend dalam satu proyek monitoring.
+Tim memutuskan menggunakan **custom error handling** sebagai strategi penanganan dan pemantauan error dalam proyek iMunetra. Strategi ini dipilih karena:
+- Dapat disesuaikan dengan kebutuhan proyek tanpa bergantung pada layanan pihak ketiga.
+- Memungkinkan pengelolaan error secara spesifik berdasarkan jenis error dan platform.
+- Mempermudah debugging awal dan pelaporan error yang dikendalikan sendiri.
+- Dapat diintegrasikan dengan sistem notifikasi internal seperti email atau Telegram.
+- Mendukung logging ke file atau database untuk keperluan audit dan pelacakan.
 
 ## Consequences
 
 ### Keuntungan
-
-- **Observabilitas menyeluruh** dari frontend dan backend.
-- **Dashboard interaktif** yang memudahkan debugging dan kolaborasi antar tim.
-- **Tracking granular**, seperti tag lokasi, device, user, dan event.
-- Mendukung **alert otomatis**, integrasi ke Slack/email.
+- Kontrol penuh terhadap proses logging dan penanganan error.
+- Tidak tergantung layanan eksternal, sehingga lebih ringan dan fleksibel.
+- Dapat disesuaikan dengan kebutuhan monitoring proyek iMunetra.
+- Privasi lebih terjaga, karena data tidak dikirim ke layanan pihak ketiga.
 
 ### Potensi Risiko
-
-- Beberapa fitur lanjutan terbatas di versi gratis (misalnya history lebih dari 30 hari).
-- Setup awal lebih kompleks daripada solusi seperti Crashlytics.
+- Kurang observabilitas real-time, terutama jika tidak ada sistem notifikasi aktif.
+- Perlu lebih banyak waktu pengembangan untuk membangun sistem logging dan pelaporan.
+- Tidak ada dasbor bawaan seperti di layanan monitoring profesional.
 
 ### Mitigasi
+- Mengembangkan sistem logging sederhana untuk menyimpan error lokal dan backend.
+- Menambahkan middleware untuk mencatat error di backend Laravel dan mengirim laporan ke admin.
+- Di sisi Flutter, membuat handler global untuk mencatat error dan mengirim data error via API.
+- Menyediakan panduan debugging bagi relawan dan admin.
 
-- Fokus pada setup inti terlebih dahulu (capture exception dan breadcrumbs).
-- Gunakan versi komunitas/gratis untuk awal pengembangan dan evaluasi kebutuhan upgrade saat scaling.
-- Dokumentasikan standar implementasi logging dan penanganan error sejak awal.
 
 ## Alternatives Considered
 
-- **Firebase Crashlytics**: Integrasi cepat dengan Flutter, tetapi tidak mendukung Laravel secara langsung. Tidak ideal untuk kebutuhan observabilitas lintas platform.
-- **Custom Logging**: Lebih fleksibel tapi membutuhkan banyak waktu pengembangan dan tidak memiliki fitur realtime.
-- **Tanpa Monitoring**: Tidak dipertimbangkan karena terlalu berisiko untuk aplikasi lapangan seperti Imunetra.
+- **Sentry**: Lengkap dan otomatis, tetapi memerlukan integrasi tambahan dan ketergantungan pihak ketiga.
+- **Firebase Crashlytics**: Mudah diintegrasikan ke Flutter, tapi tidak mendukung Laravel backend.
+- **Tanpa Monitoring**: Tidak disarankan karena menyulitkan penanganan error di lapangan.
