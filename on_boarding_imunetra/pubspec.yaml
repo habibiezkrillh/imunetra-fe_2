@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_bloc: ^9.1.1
   flutter_screenutil: ^5.9.3
+  go_router: ^12.1.1
+  google_fonts: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +60,21 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts: 
+    - family: Poppins
+      fonts: 
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-Semibold.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+    
+  assets: 
+    - assets/images/Logo.png
+    - assets/images/gambar1.png
+    - assets/images/gambar2.png
+    - assets/images/gambar3.png
+    - assets/images/profile.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

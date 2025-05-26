@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:on_boarding_imunetra/Views/Splashscreen.dart';
+import 'views/onboarding/splashscreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
