@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/pasien_model.dart';
+import 'detail_pasien_view.dart';
 import '../../utils/theme.dart';
 
 class PasienCard extends StatelessWidget {
@@ -95,7 +96,14 @@ class PasienCard extends StatelessWidget {
                 ),
                 minimumSize: const Size.fromHeight(36),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DetailPasienView(),
+                  ),
+                );
+              },
               child: const Text(
                 'Lihat Data Pasien',
                 style: TextStyle(
