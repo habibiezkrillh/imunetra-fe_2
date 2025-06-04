@@ -1,11 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:front_end/models/login_model.dart';
+import 'package:front_end/services/login_service.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitial()) {
+  final LoginService loginService;
+
+  LoginBloc({required this.loginService}) : super(LoginInitial()) {
     on<LoginSubmitted>(_onLoginSubmitted);
     on<PasswordVisibilityChanged>(_onPasswordVisibilityChanged);
   }
@@ -16,13 +19,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(LoginLoading());
     try {
-      // ToDo: Replace with actual API call
-      await Future.delayed(const Duration(seconds: 1));
-
-      if (event.loginData.username.isEmpty || event.loginData.password.isEmpty) {
-        throw Exception('Username dan password harus diisi');
-      }
-
+      // Gunakan service untuk login
+      await loginService.login(event.loginData);
       emit(LoginSuccess());
     } catch (e) {
       emit(LoginFailure(error: e.toString()));

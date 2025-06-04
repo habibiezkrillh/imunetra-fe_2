@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:front_end/utils/theme.dart';
 import 'package:front_end/bloc/login/login_bloc.dart';
 import 'package:front_end/models/login_model.dart';
+import 'package:front_end/services/login_service.dart';
 import 'register_page.dart';
 import 'forgot_password_page.dart';
 import '../home/home_page.dart';
@@ -15,7 +16,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(),
+      create: (context) => LoginBloc(loginService: LoginService()),
       child: const _LoginView(),
     );
   }
