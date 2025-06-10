@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:front_end/models/login_model.dart';
+import 'package:front_end/models/auth/login_model.dart';
 import 'package:front_end/services/auth/login_service.dart';
 
 part 'login_event.dart';

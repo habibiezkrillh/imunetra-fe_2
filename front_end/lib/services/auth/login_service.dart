@@ -1,4 +1,4 @@
-import 'package:front_end/models/login_model.dart';
+import 'package:front_end/models/auth/login_model.dart';
 
 class LoginService {
     // Simulasi data user yang valid untuk demo

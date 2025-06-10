@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:front_end/utils/theme.dart';
 import 'package:front_end/bloc//register/register_bloc.dart';
-import 'package:front_end/models/register_model.dart';
+import 'package:front_end/models/auth/register_model.dart';
 import 'login_page.dart';
 import '../home/home_page.dart';
 

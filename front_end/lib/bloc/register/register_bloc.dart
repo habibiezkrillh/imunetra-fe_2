@@ -1,6 +1,6 @@
 // lib/features/auth/bloc/register_bloc.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:front_end/models/register_model.dart';
+import 'package:front_end/models/auth/register_model.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';

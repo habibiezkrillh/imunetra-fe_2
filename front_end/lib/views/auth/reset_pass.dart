@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // Import Screen
-import 'login_page.dart';
+import 'success_pass.dart';
 
 class ResetPasswordView extends StatelessWidget {
   const ResetPasswordView({super.key});
@@ -80,7 +80,7 @@ class ResetPasswordView extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => PasswordUpdatedView()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

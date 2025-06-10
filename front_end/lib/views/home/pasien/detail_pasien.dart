@@ -205,7 +205,9 @@ class DetailPasienView extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    // ToDo: Tidak Terdeteksi button action
+                  },
                   child: const Text(
                     'Tidak Terdeteksi',
                     style: TextStyle(
@@ -224,7 +226,9 @@ class DetailPasienView extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    // ToDo: Terdeteksi button action
+                  },
                   child: const Text(
                     'Terdeteksi',
                     style: TextStyle(

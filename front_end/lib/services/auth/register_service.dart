@@ -1,4 +1,4 @@
-import 'package:front_end/models/register_model.dart';
+import 'package:front_end/models/auth/register_model.dart';
 
 class RegisterService {
   // Simulated delay for API call (belum di fetching wak)
