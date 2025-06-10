@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/theme.dart';
 
+// Import screen
+import 'email_sent_page.dart';
+
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({super.key});
 
@@ -81,7 +84,10 @@ class ForgotPasswordPage extends StatelessWidget {
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    // ToDo: Tambahkan aksi kirim email
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const EmailSentPage(email: '',)),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
