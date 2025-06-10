@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Imp
+// Import Screen
+import 'otp_verification.dart';
 
 class EmailSentPage extends StatelessWidget {
   final String email;
@@ -47,7 +48,10 @@ class EmailSentPage extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () {
-                    // ToDo: Navigasi ke OTP
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OTPVerificationView()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF3B6BFD),
