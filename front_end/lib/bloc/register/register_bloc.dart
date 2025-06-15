@@ -1,13 +1,17 @@
-// lib/features/auth/bloc/register_bloc.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:front_end/models/auth/register_model.dart';
+import 'package:front_end/services/auth_service.dart'; // Import service baru
 
 part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  
-  RegisterBloc() : super(RegisterInitial()) {
+  final AuthService _authService; // Tambahkan instance AuthService
+
+  // Inisialisasi bloc dengan AuthService
+  RegisterBloc({AuthService? authService})
+      : _authService = authService ?? AuthService(), // Gunakan instance yang diberikan atau buat yang baru
+        super(RegisterInitial()) {
     on<RegisterSubmitted>(_onRegisterSubmitted);
     on<RegisterDatePicked>(_onDatePicked);
     on<RegisterFilePicked>(_onFilePicked);
@@ -20,15 +24,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async {
     emit(RegisterLoading());
     try {
-      // TODO: Replace with actual API call
-      await Future.delayed(const Duration(seconds: 2));
-      
-      if (event.registerData.email.contains('test')) {
-        throw Exception('Email test tidak diperbolehkan');
-      }
-      
+      // Panggil service untuk mendaftar tenaga medis
+      final response = await _authService.registerTenagaMedis(event.registerData);
+      print('Register Success Response: $response'); // Untuk debugging
+
       emit(RegisterSuccess());
     } catch (e) {
+      print('Register Error: $e'); // Untuk debugging
       emit(RegisterFailure(error: e.toString()));
     }
   }

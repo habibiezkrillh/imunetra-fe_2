@@ -3,7 +3,7 @@ part of 'register_bloc.dart';
 abstract class RegisterEvent {}
 
 class RegisterSubmitted extends RegisterEvent {
-  final RegisterData registerData;
+  final RegisterTenagaMedisData registerData; // menggunakan model baru
 
   RegisterSubmitted(this.registerData);
 }

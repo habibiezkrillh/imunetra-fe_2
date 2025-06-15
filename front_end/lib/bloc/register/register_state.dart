@@ -1,4 +1,3 @@
-// lib/features/auth/bloc/register_state.dart
 part of 'register_bloc.dart';
 
 abstract class RegisterState {}

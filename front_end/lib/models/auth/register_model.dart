@@ -1,34 +1,37 @@
-class RegisterData {
-  final String fullName;
+class RegisterTenagaMedisData {
+  final String namaTenagaMedis;
+  final String kotaDomisili;
+  final String nomorTelepon;
   final String email;
-  final String city;
-  final String phoneNumber;
-  final String password;
-  final DateTime birthDate;
-  final String address;
-  final String? ktpFile;
+  final String kataSandi;
+  final DateTime tanggalLahir;
+  final String alamatLengkap;
+  final String? ktp; // Asumsi ini nama file KTP
+  final String puskesmasRumahSakit;
 
-  RegisterData({
-    required this.fullName,
+  RegisterTenagaMedisData({
+    required this.namaTenagaMedis,
+    required this.kotaDomisili,
+    required this.nomorTelepon,
     required this.email,
-    required this.city,
-    required this.phoneNumber,
-    required this.password,
-    required this.birthDate,
-    required this.address,
-    this.ktpFile,
+    required this.kataSandi,
+    required this.tanggalLahir,
+    required this.alamatLengkap,
+    this.ktp,
+    required this.puskesmasRumahSakit,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'fullName': fullName,
+      'namatenagamedis': namaTenagaMedis,
+      'kotadomisili': kotaDomisili,
+      'nomortelepon': nomorTelepon,
       'email': email,
-      'city': city,
-      'phoneNumber': phoneNumber,
-      'password': password,
-      'birthDate': birthDate.toIso8601String(),
-      'address': address,
-      'ktpFile': ktpFile,
+      'katasandi': kataSandi,
+      'tanggalLahir': tanggalLahir.toIso8601String(), // Sesuaikan format jika backend mengharapkan 'YYYY-MM-DD' saja
+      'alamatlengkap': alamatLengkap,
+      'KTP': ktp, // Sesuaikan dengan nama field KTP di backend
+      'Puskesmas/RumahSakit': puskesmasRumahSakit,
     };
   }
 }
