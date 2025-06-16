@@ -14,12 +14,6 @@ class RegisterDatePicked extends RegisterEvent {
   RegisterDatePicked(this.date);
 }
 
-class RegisterFilePicked extends RegisterEvent {
-  final String filename;
-
-  RegisterFilePicked(this.filename);
-}
-
 class RegisterTermsChanged extends RegisterEvent {
   final bool accepted;
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:front_end/utils/theme.dart';
 import 'package:front_end/bloc/register/register_bloc.dart'; // Periksa path ini
 import 'package:front_end/models/auth/register_model.dart'; // Periksa path ini
@@ -76,7 +75,6 @@ class __RegisterFormState extends State<_RegisterForm> {
   final TextEditingController _alamatController = TextEditingController();
   final TextEditingController _puskesmasRsController = TextEditingController(); // Controller baru
 
-  String? _ktpFilename; // Untuk menyimpan nama file KTP yang dipilih
   DateTime? _selectedDate; // Untuk menyimpan tanggal lahir yang dipilih
 
   @override
@@ -106,28 +104,6 @@ class __RegisterFormState extends State<_RegisterForm> {
       context.read<RegisterBloc>().add(RegisterDatePicked(picked));
     }
   }
-
-  Future<void> _pickFileKTP() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'pdf'],
-    );
-
-    if (result != null && result.files.single.name.isNotEmpty) {
-      setState(() {
-        _ktpFilename = result.files.single.name;
-      });
-      context.read<RegisterBloc>().add(
-            RegisterFilePicked(result.files.single.name),
-          );
-    } else {
-      setState(() {
-        _ktpFilename = null; // Reset jika tidak ada file yang dipilih
-      });
-      context.read<RegisterBloc>().add(RegisterFilePicked('')); // Kirim string kosong jika dibatalkan
-    }
-  }
-
 
   Widget _buildInputField(
     IconData icon,
@@ -196,12 +172,6 @@ class __RegisterFormState extends State<_RegisterForm> {
         if (state is RegisterTermsUpdated) {
           termsAccepted = state.accepted;
         }
-
-        // Ambil filename KTP dari state Bloc
-        if (state is RegisterFileUpdated) {
-          _ktpFilename = state.filename;
-        }
-
 
         return Form(
           key: _formKey,
@@ -286,17 +256,6 @@ class __RegisterFormState extends State<_RegisterForm> {
               // Field baru untuk Puskesmas/Rumah Sakit
               _buildInputField(Icons.local_hospital_outlined, 'Puskesmas/Rumah Sakit', _puskesmasRsController),
 
-
-              // Upload KTP
-              _buildInputField(
-                Icons.badge_outlined,
-                _ktpFilename ?? 'Unggah KTP', // Tampilkan nama file KTP jika sudah dipilih
-                TextEditingController(), // Menggunakan controller dummy karena hanya untuk menampilkan
-                readOnly: true,
-                onTap: _pickFileKTP,
-                suffix: const Icon(Icons.upload_outlined),
-              ),
-
               // Checkbox Syarat & Ketentuan
               Row(
                 children: [
@@ -324,7 +283,7 @@ class __RegisterFormState extends State<_RegisterForm> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: (state is RegisterLoading || !termsAccepted || _selectedDate == null || _ktpFilename == null)
+                  onPressed: (state is RegisterLoading || !termsAccepted || _selectedDate == null)
                       ? null // Disable tombol jika loading, terms belum diterima, tanggal lahir atau KTP belum dipilih
                       : () {
                           if (_formKey.currentState!.validate()) {
@@ -336,7 +295,6 @@ class __RegisterFormState extends State<_RegisterForm> {
                               kataSandi: _passwordController.text, // Sesuaikan dengan backend
                               tanggalLahir: _selectedDate!, // Pastikan sudah dipilih
                               alamatLengkap: _alamatController.text,
-                              ktp: _ktpFilename, // Kirim nama file KTP
                               puskesmasRumahSakit: _puskesmasRsController.text, // Data baru
                             );
                             context.read<RegisterBloc>().add(

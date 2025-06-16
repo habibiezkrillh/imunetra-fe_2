@@ -14,7 +14,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         super(RegisterInitial()) {
     on<RegisterSubmitted>(_onRegisterSubmitted);
     on<RegisterDatePicked>(_onDatePicked);
-    on<RegisterFilePicked>(_onFilePicked);
     on<RegisterTermsChanged>(_onTermsChanged);
   }
 
@@ -40,13 +39,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) {
     emit(RegisterDateUpdated(date: event.date));
-  }
-
-  void _onFilePicked(
-    RegisterFilePicked event,
-    Emitter<RegisterState> emit,
-  ) {
-    emit(RegisterFileUpdated(filename: event.filename));
   }
 
   void _onTermsChanged(

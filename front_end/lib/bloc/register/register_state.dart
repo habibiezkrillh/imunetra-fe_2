@@ -20,12 +20,6 @@ class RegisterDateUpdated extends RegisterState {
   RegisterDateUpdated({required this.date});
 }
 
-class RegisterFileUpdated extends RegisterState {
-  final String filename;
-
-  RegisterFileUpdated({required this.filename});
-}
-
 class RegisterTermsUpdated extends RegisterState {
   final bool accepted;
 

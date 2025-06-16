@@ -7,7 +7,7 @@ class AuthService {
   final String _baseUrl = 'https://192.168.1.5:800/api'; // Contoh IP Lokal. sesuaikan nanti dengan IP Backend
 
   Future<Map<String, dynamic>> registerTenagaMedis(RegisterTenagaMedisData data) async {
-    final url = Uri.parse('$_baseUrl/register/tenagamedis');
+    final url = Uri.parse('$_baseUrl/register/tenaga-medis');
     try {
       final response = await http.post(
         url,
