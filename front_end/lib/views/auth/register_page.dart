@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:front_end/utils/theme.dart';
-import 'package:front_end/bloc//register/register_bloc.dart';
-import 'package:front_end/models/auth/register_model.dart';
+import 'package:front_end/bloc/register/register_bloc.dart'; // Periksa path ini
+import 'package:front_end/models/auth/register_model.dart'; // Periksa path ini
+import 'package:front_end/services/auth_service.dart'; // Import AuthService
 import 'login_page.dart';
 import '../home/home_page.dart';
 
@@ -15,7 +15,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisterBloc(),
+      create: (context) => RegisterBloc(authService: AuthService()), // Sediakan AuthService
       child: const _RegisterView(),
     );
   }
@@ -34,13 +34,18 @@ class _RegisterView extends StatelessWidget {
           child: BlocListener<RegisterBloc, RegisterState>(
             listener: (context, state) {
               if (state is RegisterSuccess) {
+                // Navigasi ke halaman sukses atau home
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Pendaftaran berhasil!')),
+                );
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),
                 );
               } else if (state is RegisterFailure) {
+                // Tampilkan error
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.error)),
+                  SnackBar(content: Text('Pendaftaran gagal: ${state.error}')),
                 );
               }
             },
@@ -68,6 +73,9 @@ class __RegisterFormState extends State<_RegisterForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _tanggalController = TextEditingController();
   final TextEditingController _alamatController = TextEditingController();
+  final TextEditingController _puskesmasRsController = TextEditingController(); // Controller baru
+
+  DateTime? _selectedDate; // Untuk menyimpan tanggal lahir yang dipilih
 
   @override
   void dispose() {
@@ -78,33 +86,22 @@ class __RegisterFormState extends State<_RegisterForm> {
     _passwordController.dispose();
     _tanggalController.dispose();
     _alamatController.dispose();
+    _puskesmasRsController.dispose(); // Dispose controller baru
     super.dispose();
   }
 
   Future<void> _pickTanggalLahir() async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: DateTime(2000),
+      initialDate: _selectedDate ?? DateTime(2000), // Gunakan tanggal yang sudah dipilih jika ada
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
 
     if (picked != null) {
+      _selectedDate = picked; // Simpan tanggal yang dipilih
       _tanggalController.text = DateFormat('dd-MM-yyyy').format(picked);
       context.read<RegisterBloc>().add(RegisterDatePicked(picked));
-    }
-  }
-
-  Future<void> _pickFileKTP() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'pdf'],
-    );
-
-    if (result != null) {
-      context.read<RegisterBloc>().add(
-            RegisterFilePicked(result.files.single.name),
-          );
     }
   }
 
@@ -116,6 +113,7 @@ class __RegisterFormState extends State<_RegisterForm> {
     bool readOnly = false,
     VoidCallback? onTap,
     Widget? suffix,
+    TextInputType? keyboardType, // Tambahkan ini
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -135,6 +133,7 @@ class __RegisterFormState extends State<_RegisterForm> {
         obscureText: obscure,
         readOnly: readOnly,
         onTap: onTap,
+        keyboardType: keyboardType, // Gunakan keyboardType
         decoration: InputDecoration(
           prefixIcon: Icon(icon, color: AppColors.primary),
           suffixIcon: suffix,
@@ -146,6 +145,21 @@ class __RegisterFormState extends State<_RegisterForm> {
           filled: true,
           fillColor: Colors.white,
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Field ini tidak boleh kosong';
+          }
+          if (hint == 'Alamat E-Mail' && !value.contains('@')) {
+            return 'Masukkan email yang valid';
+          }
+          if (hint == 'Nomor Telpon' && (value.length < 10 || value.length > 15)) {
+            return 'Nomor telepon antara 10-15 digit';
+          }
+          if (hint == 'Kata Sandi' && value.length < 6) {
+            return 'Kata sandi minimal 6 karakter';
+          }
+          return null;
+        },
       ),
     );
   }
@@ -154,6 +168,11 @@ class __RegisterFormState extends State<_RegisterForm> {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
+        bool termsAccepted = false;
+        if (state is RegisterTermsUpdated) {
+          termsAccepted = state.accepted;
+        }
+
         return Form(
           key: _formKey,
           child: ListView(
@@ -170,7 +189,7 @@ class __RegisterFormState extends State<_RegisterForm> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Register',
+                    'Register Tenaga Medis', // Ubah teks register
                     style: GoogleFonts.poppins(
                       color: AppColors.primary,
                       fontSize: 20,
@@ -183,7 +202,7 @@ class __RegisterFormState extends State<_RegisterForm> {
 
               // Judul
               Text(
-                'Silahkan Daftarkan diri anda',
+                'Silahkan Daftarkan diri anda sebagai Tenaga Medis', // Ubah teks judul
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -194,7 +213,7 @@ class __RegisterFormState extends State<_RegisterForm> {
 
               // Input fields
               _buildInputField(Icons.person_outline, 'Nama Lengkap', _namaController),
-              _buildInputField(Icons.email_outlined, 'Alamat E-Mail', _emailController),
+              _buildInputField(Icons.email_outlined, 'Alamat E-Mail', _emailController, keyboardType: TextInputType.emailAddress),
               _buildInputField(Icons.location_on_outlined, 'Kota Domisili', _kotaController),
               
               // Nomor Telepon (dengan kode negara)
@@ -220,7 +239,7 @@ class __RegisterFormState extends State<_RegisterForm> {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: _buildInputField(Icons.phone_outlined, 'Nomor Telpon', _telpController),
+                    child: _buildInputField(Icons.phone_outlined, 'Nomor Telpon', _telpController, keyboardType: TextInputType.phone),
                   ),
                 ],
               ),
@@ -234,54 +253,28 @@ class __RegisterFormState extends State<_RegisterForm> {
                 onTap: _pickTanggalLahir,
               ),
               _buildInputField(Icons.home_outlined, 'Alamat Lengkap', _alamatController),
-
-              // Upload KTP
-              BlocBuilder<RegisterBloc, RegisterState>(
-                buildWhen: (previous, current) => current is RegisterFileUpdated,
-                builder: (context, state) {
-                  String? filename;
-                  if (state is RegisterFileUpdated) {
-                    filename = state.filename;
-                  }
-                  return _buildInputField(
-                    Icons.badge_outlined,
-                    filename ?? 'Unggah KTP',
-                    TextEditingController(),
-                    readOnly: true,
-                    onTap: _pickFileKTP,
-                    suffix: const Icon(Icons.upload_outlined),
-                  );
-                },
-              ),
+              // Field baru untuk Puskesmas/Rumah Sakit
+              _buildInputField(Icons.local_hospital_outlined, 'Puskesmas/Rumah Sakit', _puskesmasRsController),
 
               // Checkbox Syarat & Ketentuan
-              BlocBuilder<RegisterBloc, RegisterState>(
-                buildWhen: (previous, current) => current is RegisterTermsUpdated,
-                builder: (context, state) {
-                  bool accepted = false;
-                  if (state is RegisterTermsUpdated) {
-                    accepted = state.accepted;
-                  }
-                  return Row(
-                    children: [
-                      Checkbox(
-                        value: accepted,
-                        onChanged: (value) {
-                          context.read<RegisterBloc>().add(
-                                RegisterTermsChanged(value ?? false),
-                              );
-                        },
-                        activeColor: AppColors.primary,
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Saya Setuju dengan Segala Syarat & Ketentuan yang berlaku di Aplikasi Imunetra',
-                          style: GoogleFonts.poppins(fontSize: 12),
-                        ),
-                      ),
-                    ],
-                  );
-                },
+              Row(
+                children: [
+                  Checkbox(
+                    value: termsAccepted,
+                    onChanged: (value) {
+                      context.read<RegisterBloc>().add(
+                            RegisterTermsChanged(value ?? false),
+                          );
+                    },
+                    activeColor: AppColors.primary,
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Saya Setuju dengan Segala Syarat & Ketentuan yang berlaku di Aplikasi Imunetra',
+                      style: GoogleFonts.poppins(fontSize: 12),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
 
@@ -290,18 +283,19 @@ class __RegisterFormState extends State<_RegisterForm> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: state is RegisterLoading
-                      ? null
+                  onPressed: (state is RegisterLoading || !termsAccepted || _selectedDate == null)
+                      ? null // Disable tombol jika loading, terms belum diterima, tanggal lahir atau KTP belum dipilih
                       : () {
                           if (_formKey.currentState!.validate()) {
-                            final registerData = RegisterData(
-                              fullName: _namaController.text,
+                            final registerData = RegisterTenagaMedisData( // Gunakan model baru
+                              namaTenagaMedis: _namaController.text, // Sesuaikan dengan backend
                               email: _emailController.text,
-                              city: _kotaController.text,
-                              phoneNumber: _telpController.text,
-                              password: _passwordController.text,
-                              birthDate: DateTime.now(), // Will be replaced by picked date
-                              address: _alamatController.text,
+                              kotaDomisili: _kotaController.text,
+                              nomorTelepon: _telpController.text,
+                              kataSandi: _passwordController.text, // Sesuaikan dengan backend
+                              tanggalLahir: _selectedDate!, // Pastikan sudah dipilih
+                              alamatLengkap: _alamatController.text,
+                              puskesmasRumahSakit: _puskesmasRsController.text, // Data baru
                             );
                             context.read<RegisterBloc>().add(
                                   RegisterSubmitted(registerData),

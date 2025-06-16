@@ -1,4 +1,3 @@
-// lib/features/auth/bloc/register_state.dart
 part of 'register_bloc.dart';
 
 abstract class RegisterState {}
@@ -19,12 +18,6 @@ class RegisterDateUpdated extends RegisterState {
   final DateTime date;
 
   RegisterDateUpdated({required this.date});
-}
-
-class RegisterFileUpdated extends RegisterState {
-  final String filename;
-
-  RegisterFileUpdated({required this.filename});
 }
 
 class RegisterTermsUpdated extends RegisterState {
