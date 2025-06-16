@@ -4,7 +4,7 @@ import 'package:front_end/models/auth/register_model.dart';
 
 class AuthService {
   // Ganti dengan URL API yang sesuai
-  final String _baseUrl = 'https://192.168.1.5:800/api'; // Contoh IP Lokal. sesuaikan nanti dengan IP Backend
+  final String _baseUrl = 'http://127.0.0.1:8000/api'; // penyesuaian IP backend
 
   Future<Map<String, dynamic>> registerTenagaMedis(RegisterTenagaMedisData data) async {
     final url = Uri.parse('$_baseUrl/register/tenaga-medis');
