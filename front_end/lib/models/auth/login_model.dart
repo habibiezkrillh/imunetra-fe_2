@@ -1,16 +1,16 @@
-class LoginData {
-  final String username;
-  final String password;
+class LoginTenagaMedisData {
+  final String email;
+  final String kataSandi;
 
-  LoginData({
-    required this.username,
-    required this.password,
+  LoginTenagaMedisData({
+    required this.email,
+    required this.kataSandi,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'username': username,
-      'password': password,
+      'email': email,
+      'katasandi': kataSandi,
     };
   }
 }

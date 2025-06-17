@@ -1,14 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:front_end/models/auth/login_model.dart';
-import 'package:front_end/services/auth/login_service.dart';
+import 'package:front_end/services/auth_service.dart'; // Gunakan AuthService yang sama
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final LoginService loginService;
+  final AuthService _authService;
 
-  LoginBloc({required this.loginService}) : super(LoginInitial()) {
+  LoginBloc({AuthService? authService})
+      : _authService = authService ?? AuthService(),
+        super(LoginInitial()) {
     on<LoginSubmitted>(_onLoginSubmitted);
     on<PasswordVisibilityChanged>(_onPasswordVisibilityChanged);
   }
@@ -19,10 +21,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(LoginLoading());
     try {
-      // Gunakan service untuk login
-      await loginService.login(event.loginData);
-      emit(LoginSuccess());
+      // Gunakan AuthService untuk login tenaga medis
+      final response = await _authService.loginTenagaMedis(
+        email: event.loginData.email,
+        kataSandi: event.loginData.kataSandi,
+      );
+      
+      print('Login Success Response: $response'); // Untuk debugging
+      emit(LoginSuccess(userData: response['data']));
     } catch (e) {
+      print('Login Error: $e'); // Untuk debugging
       emit(LoginFailure(error: e.toString()));
     }
   }

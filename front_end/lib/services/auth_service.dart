@@ -77,13 +77,69 @@ class AuthService {
     }
   }
 
-  // ToDo: Implementasi Login Tenaga Medis
-  // Future<Map<String, dynamic>> loginTenagaMedis({
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   // Akan diimplementasi nanti
-  // }
+  // Login Tenaga Medis
+  Future<Map<String, dynamic>> loginTenagaMedis({
+    required String email,
+    required String kataSandi,
+  }) async {
+    try {
+      final url = Uri.parse('$baseUrl/login/tenaga-medis');
+
+      final requestBody = {
+        'email': email,
+        'katasandi': kataSandi,
+      };
+
+      print('Login Request URL: $url');
+      print('Login Request Body: ${jsonEncode(requestBody)}');
+
+      final response = await http.post(
+        url,
+        headers: _headers,
+        body: jsonEncode(requestBody),
+      );
+
+      print('Login Response Status: ${response.statusCode}');
+      print('Login Response Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        // Login Berhasil
+        final responseData = jsonDecode(response.body);
+        return responseData;
+      } else if (response.statusCode == 401) {
+        // Unauthorized - email atau password salah
+        final errorData = jsonDecode(response.body);
+        throw Exception(errorData['message'] ?? 'Email atau kata sandi salah');
+      } else if (response.statusCode == 422) {
+        // Validation error
+        final errorData = jsonDecode(response.body);
+        final errors = errorData['errors'] as Map<String, dynamic>;
+
+        String errorMessage = '';
+        errors.forEach((key, value) {
+          if (value is List && value.isNotEmpty) {
+            errorMessage += '${value.first}\n';
+          }
+        });
+
+        throw Exception(errorMessage.trim());
+      } else {
+        // Error lainnya
+        final errorData = jsonDecode(response.body);
+        throw Exception(errorData['message'] ?? 'Terjadi kesalahan pada server');
+      }
+    } catch (e) {
+      if (e.runtimeType.toString().contains('SocketException')) {
+        throw Exception('Tidak dapat terhubung ke server. Pastikan server berjalan dan koneksi internet stabil');
+      }
+
+      if (e.runtimeType.toString().contains('FormatException')) {
+        throw Exception('Response dari server tidak valid');
+      }
+
+      rethrow;
+    }
+  }
 
   /// Format tanggal untuk backend (YYYY-MM-DD)
   String _formatDateForBackend(DateTime date) {
