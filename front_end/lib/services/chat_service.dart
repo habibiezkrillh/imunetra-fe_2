@@ -12,8 +12,8 @@ class ChatServiceImpl implements ChatService {
   // Simulasi data - dalam implementasi nyata ini bisa dari API/Database
   final List<Map<String, dynamic>> _mockData = [
     {
-      'name': 'Astra',
-      'company': 'PT Astra Internasional Tbk',
+      'name': 'Adel',
+      'company': 'Universitas Hasanuddin',
       'message': 'Halo, boleh tahu lebih dalam mengenai acaranya?',
       'time': '10:00',
       'unreadCount': 2,
@@ -21,8 +21,8 @@ class ChatServiceImpl implements ChatService {
       'read': false,
     },
     {
-      'name': 'BRI',
-      'company': 'PT Bank Rakyat Indonesia (Persero) Tbk',
+      'name': 'Revi',
+      'company': 'IndoRelawan',
       'message': 'Halo, boleh tahu lebih dalam mengenai acaranya?',
       'time': '09:13',
       'unreadCount': 0,
@@ -30,8 +30,8 @@ class ChatServiceImpl implements ChatService {
       'read': true,
     },
     {
-      'name': 'Telkom',
-      'company': ' PT Telkom Indonesia (Persero) Tbk',
+      'name': 'Leonard',
+      'company': 'Universitas Ciputra',
       'message': 'Halo, boleh tahu lebih mengenai acaranya?',
       'time': '09:00',
       'unreadCount': 5,
@@ -39,8 +39,8 @@ class ChatServiceImpl implements ChatService {
       'read': false,
     },
     {
-      'name': 'Alfamart',
-      'company': 'PT Sumber Alfaria Trijaya Tbk',
+      'name': 'David',
+      'company': 'Binus University',
       'message': 'Halo, boleh tahu lebih dalam mengenai acaranya?',
       'time': '08:55',
       'unreadCount': 0,
