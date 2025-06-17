@@ -28,7 +28,7 @@ class RegisterTenagaMedisData {
       'katasandi': kataSandi,
       'tanggalLahir': tanggalLahir.toIso8601String(), // Sesuaikan format jika backend mengharapkan 'YYYY-MM-DD' saja
       'alamatlengkap': alamatLengkap,
-      'Puskesmas/RumahSakit': puskesmasRumahSakit,
+      'puskesmas_rumahsakit': puskesmasRumahSakit,
     };
   }
 }
