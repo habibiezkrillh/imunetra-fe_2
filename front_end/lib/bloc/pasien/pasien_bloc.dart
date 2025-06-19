@@ -19,17 +19,17 @@ class PasienBloc extends Bloc<PasienEvent, PasienState> {
       final pasienList = [
         PasienModel(
           id: '1',
-          nama: 'Reza Rahardian',
+          nama: 'Kamila Salsabila',
           umur: 6,
           jenisKelamin: 'Perempuan',
-          status: StatusKesehatan.butuhBantuan,
+          status: StatusKesehatan.sehat,
         ),
         PasienModel(
           id: '2',
           nama: 'Rayyan Alfarezi Pratama',
           umur: 8,
           jenisKelamin: 'Laki-laki',
-          status: StatusKesehatan.sehat,
+          status: StatusKesehatan.butuhBantuan,
         ),
       ];
 
